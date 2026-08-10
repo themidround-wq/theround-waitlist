@@ -558,7 +558,7 @@ export function PracticeLoop() {
         <section
           key={step.number}
           style={{ top: i * 20, zIndex: i + 1 }}
-          className="sticky flex min-h-screen flex-col justify-center bg-white px-4 py-16 text-ink shadow-[0_-24px_50px_-20px_rgba(20,39,26,0.25)] sm:px-6 lg:px-[6.32%] lg:py-24"
+          className="static flex min-h-screen flex-col justify-center bg-white px-4 py-16 text-ink shadow-[0_-24px_50px_-20px_rgba(20,39,26,0.25)] sm:px-6 lg:sticky lg:px-[6.32%] lg:py-24"
         >
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-16">
             <Reveal className="flex flex-col">
