@@ -1,6 +1,6 @@
 export function TopicCard() {
   return (
-    <div className="w-full max-w-md justify-self-center lg:justify-self-end">
+    <div className="w-full max-w-md justify-self-center lg:justify-self-end rotate-[1.2deg]">
       <div className="rounded-[28px] border border-lime/20 bg-[#132014]/50 p-3 shadow-2xl backdrop-blur-sm">
         <div className="flex items-center justify-between px-3 pt-2">
           <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/50">

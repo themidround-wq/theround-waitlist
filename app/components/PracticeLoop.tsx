@@ -177,7 +177,7 @@ function StepPanel({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative overflow-hidden rounded-[32px] bg-[#eeecd6] px-6 py-10 sm:px-10 sm:py-12">
+    <div className="relative overflow-hidden rounded-[32px] bg-[#eeecd6]  px-6 py-10 sm:px-10 sm:py-12">
       <CornerMark className="absolute right-6 top-6" />
       <CornerMark className="absolute bottom-6 left-6" />
 
@@ -406,9 +406,8 @@ function WaveformPlayerVisual() {
         {RESPONSE_WAVEFORM.map((h, i) => (
           <span
             key={i}
-            className={`w-2 shrink-0 rounded-full ${
-              i % 3 === 1 ? "bg-moss" : "bg-ink"
-            }`}
+            className={`w-2 shrink-0 rounded-full ${i % 3 === 1 ? "bg-moss" : "bg-ink"
+              }`}
             style={{ height: `${h}%` }}
           />
         ))}
@@ -588,7 +587,7 @@ export function PracticeLoop() {
                 {step.description}
               </p>
 
-              <div className="mt-10 h-[3px] w-full max-w-md overflow-hidden rounded-full bg-cream">
+              <div className="mt-10 h-0.75 w-full max-w-md overflow-hidden rounded-full bg-cream">
                 <div
                   className="h-full rounded-full bg-ink"
                   style={{ width: `${((i + 1) / TOTAL_STEPS) * 100}%` }}
