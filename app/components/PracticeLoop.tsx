@@ -250,11 +250,11 @@ function SpinWheelVisual() {
     <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-center lg:gap-8">
       <div className="relative h-72 w-72 shrink-0 sm:h-80 sm:w-80">
         <span
-          className="absolute left-1/2 -top-2 z-10 h-0 w-0 -translate-x-1/2"
+          className="absolute left-1/2 -top-3 z-10 h-0 w-0 -translate-x-1/2"
           style={{
-            borderLeft: "8px solid transparent",
-            borderRight: "8px solid transparent",
-            borderTop: "10px solid #caff79",
+            borderLeft: "14px solid transparent",
+            borderRight: "14px solid transparent",
+            borderTop: "18px solid #caff79",
           }}
         />
 
@@ -309,12 +309,12 @@ function SpinWheelVisual() {
         </div>
 
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="absolute h-28 w-28 rounded-full border border-dashed border-cream/20" />
+          <div className="pointer-events-none absolute h-28 w-28 rounded-full border border-dashed border-cream/20" />
           <button
             type="button"
             onClick={handleSpin}
             disabled={spinning}
-            className="flex h-24 w-24 flex-col items-center justify-center rounded-full bg-lime text-ink shadow-lg transition-transform enabled:hover:scale-105 disabled:cursor-not-allowed"
+            className="flex h-24 w-24 cursor-pointer flex-col items-center justify-center rounded-full bg-lime text-ink shadow-lg transition-transform enabled:hover:scale-105 disabled:cursor-not-allowed"
           >
             <span className="text-[10px] font-bold uppercase tracking-[0.1em]">
               {spinning ? "Spinning" : "Tap to"}
@@ -556,8 +556,8 @@ export function PracticeLoop() {
       {STEPS.map((step, i) => (
         <section
           key={step.number}
-          style={{ top: i * 20, zIndex: i + 1 }}
-          className="static flex lg:min-h-screen flex-col justify-center bg-white px-4 py-16 text-ink shadow-[0_-24px_50px_-20px_rgba(20,39,26,0.25)] sm:px-6 lg:sticky lg:px-[6.32%] lg:py-24"
+          style={{ top: 0, zIndex: i + 1 }}
+          className="static flex min-h-screen flex-col justify-center bg-white px-4 py-16 text-ink sm:px-6 lg:sticky lg:px-[6.32%] lg:py-24"
         >
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-16">
             <Reveal className="flex flex-col">
