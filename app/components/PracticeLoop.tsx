@@ -309,12 +309,12 @@ function SpinWheelVisual() {
         </div>
 
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="absolute h-28 w-28 rounded-full border border-dashed border-cream/20" />
+          <div className="pointer-events-none absolute h-28 w-28 rounded-full border border-dashed border-cream/20" />
           <button
             type="button"
             onClick={handleSpin}
             disabled={spinning}
-            className="flex h-24 w-24 flex-col items-center justify-center rounded-full bg-lime text-ink shadow-lg transition-transform enabled:hover:scale-105 disabled:cursor-not-allowed"
+            className="flex h-24 w-24 cursor-pointer flex-col items-center justify-center rounded-full bg-lime text-ink shadow-lg transition-transform enabled:hover:scale-105 disabled:cursor-not-allowed"
           >
             <span className="text-[10px] font-bold uppercase tracking-[0.1em]">
               {spinning ? "Spinning" : "Tap to"}
