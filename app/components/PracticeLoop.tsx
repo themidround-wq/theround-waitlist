@@ -250,11 +250,11 @@ function SpinWheelVisual() {
     <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-center lg:gap-8">
       <div className="relative h-72 w-72 shrink-0 sm:h-80 sm:w-80">
         <span
-          className="absolute left-1/2 -top-2 z-10 h-0 w-0 -translate-x-1/2"
+          className="absolute left-1/2 -top-3 z-10 h-0 w-0 -translate-x-1/2"
           style={{
-            borderLeft: "8px solid transparent",
-            borderRight: "8px solid transparent",
-            borderTop: "10px solid #caff79",
+            borderLeft: "14px solid transparent",
+            borderRight: "14px solid transparent",
+            borderTop: "18px solid #caff79",
           }}
         />
 
