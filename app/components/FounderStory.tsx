@@ -55,30 +55,30 @@ export function FounderStory() {
       </svg>
 
       <div className="flex items-center justify-between gap-4 border-b border-cream/10 pb-4">
-        <span className="text-[13px] font-bold uppercase tracking-[0.2em] text-cream/55">
+        <span className="sm:text-[13px] text-[10px] font-bold uppercase tracking-[0.2em] text-cream/55">
           03 · Why the round exists
         </span>
-        <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-lime">
+        <span className="text-[13px] md:block hidden font-bold uppercase tracking-[0.14em] text-lime">
           Built with students, not around them
         </span>
       </div>
 
       <div className="mt-10 flex items-center justify-between gap-4 lg:mt-14">
-        <span className="text-xs font-bold uppercase tracking-[0.2em] text-cream/50">
+        <span className="sm:text-xs text-[8px] font-bold uppercase tracking-[0.2em] text-cream/50">
           A note from the founder
         </span>
-        <span className="text-xs font-bold uppercase tracking-[0.2em] text-cream/40">
+        <span className="sm:block hidden text-xs font-bold uppercase tracking-[0.2em] text-cream/40">
           Enugu, Nigeria
         </span>
       </div>
 
       <div className="mt-8 grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_auto] lg:gap-16">
         <Reveal>
-          <h2 className="text-[40px] font-bold leading-[0.92] tracking-tight sm:text-[64px] lg:text-[121px]">
+          <h2 className="text-[49px] font-medium md:font-bold leading-[0.92] tracking-tight sm:text-[64px] lg:text-[121px]">
             I built the practice tool I kept looking for.
           </h2>
 
-          <p className="mt-6 max-w-xl text-base text-cream/60 lg:mt-8 lg:text-lg">
+          <p className="mt-6 max-w-xl text-sm sm:text-base text-cream/60 lg:mt-8 lg:text-lg">
             Midwifery school gave me plenty of ways to study quietly, but
             almost no way to practise answering out loud. So I built the
             first version of The Round, gave it to five students, and
@@ -86,7 +86,7 @@ export function FounderStory() {
           </p>
 
           <div className="mt-8 flex items-center gap-4 lg:mt-10">
-            <span className="font-serif-italic text-3xl italic text-lime">
+            <span className="-rotate-6 font-serif-italic text-3xl italic text-lime">
               Nkem
             </span>
             <span className="h-8 w-px bg-cream/20" />
@@ -99,7 +99,7 @@ export function FounderStory() {
         </Reveal>
 
         <Reveal delay={0.15} className="w-full max-w-md justify-self-center lg:justify-self-end">
-          <div className="relative overflow-hidden rounded-4xl bg-lime p-6 text-ink shadow-2xl sm:p-8">
+          <div className="relative overflow-hidden rounded-4xl bg-lime p-6 text-ink shadow-2xl sm:p-8 rotate-[1.5deg]">
             <div
               className="absolute top-0 right-0 h-10 w-10 bg-ink"
               style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
@@ -154,11 +154,11 @@ export function FounderStory() {
         </div>
       </Reveal>
 
-      <RevealGroup className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:mt-16">
+      <RevealGroup className="mt-12 w-full flex overflow-x-auto snap-x snap-mandatory scrollbar-none sm:grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:mt-16">
         {STUDENT_NOTES.map((note, i) => (
           <RevealItem
             key={note.number}
-            className="relative bg-cream px-6 py-8 text-ink sm:px-7"
+            className="relative bg-cream px-6 py-8 text-ink sm:px-7 w-81 sm:w-auto shrink-0 snap-start"
             style={{ clipPath: `url(#torn-clip-${i})` }}
           >
             <span className="text-[11px] font-bold tracking-[0.14em] text-ink/50 uppercase">
@@ -178,7 +178,7 @@ export function FounderStory() {
         {STATS.map((stat) => (
           <div
             key={stat.label}
-            className="border-cream/15 py-8 pr-6 not-nth-[2n+1]:border-l not-nth-[2n+1]:pl-6 sm:not-nth-[4n+1]:border-l sm:not-nth-[4n+1]:pl-11"
+            className="border-cream/15 py-8 pr-6  border-b not-nth-[2n+1]:border-l not-nth-[2n+1]:pl-6 sm:not-nth-[4n+1]:border-l sm:not-nth-[4n+1]:pl-11"
           >
             <p className="text-5xl font-medium text-cream lg:text-6xl">
               {stat.value}

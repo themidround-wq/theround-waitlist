@@ -117,19 +117,19 @@ export function Footer() {
       </div>
 
       <div className="mt-20 flex flex-col items-center gap-6 border-t border-ink/10 pt-8 sm:flex-row sm:justify-between lg:mt-28">
-        <div className="flex items-start gap-0.5 text-xl font-medium text-ink">
+        <div className="sm:flex items-start gap-0.5 text-xl font-medium text-ink hidden">
           the round
           <sup className="mt-0.5 text-[10px] font-normal text-moss">&reg;</sup>
         </div>
 
-        <div className="flex items-center gap-6 text-sm text-slate">
+        <div className="flex items-center sm:justify-normal justify-between sm:w-auto w-[97%] sm:border-0 border-ink/10 border-b sm:gap-6 pb-4 sm:py-0 text-sm text-slate">
           {SOCIAL_LINKS.map((link) => (
             <a
               key={link.label}
               href={link.href}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 transition-colors hover:text-ink"
+              className="inline-flex items-start sm:items-center gap-1 transition-colors hover:text-ink"
             >
               {link.label}
               <ArrowIcon className="h-3 w-3" />
@@ -137,9 +137,22 @@ export function Footer() {
           ))}
         </div>
 
-        <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-moss">
+        <span className="sm:block hidden text-[13px] font-bold uppercase tracking-[0.14em] text-moss">
           &copy; 2026 &middot; Nigeria &middot; <LiveClock />
         </span>
+
+        {/* Mobile */}
+        <div className="sm:hidden flex justify-between w-[97%]">
+          <div className="flex items-start gap-0.5 text-xl font-black text-ink">
+            the round
+            <sup className="mt-0.5 text-[10px] font-normal text-moss">&reg;</sup>
+          </div>
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#8B9187]">
+              &copy; 2026 &middot; Nigeria &middot; <span className="text-moss"><LiveClock /></span>
+            </span>
+          </div>
+        </div>
       </div>
     </footer>
   );

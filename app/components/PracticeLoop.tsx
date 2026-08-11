@@ -177,7 +177,7 @@ function StepPanel({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative overflow-hidden rounded-[32px] bg-[#eeecd6] px-6 py-10 sm:px-10 sm:py-12">
+    <div className="relative overflow-hidden rounded-[32px] bg-[#eeecd6]  px-6 py-10 sm:px-10 sm:py-12">
       <CornerMark className="absolute right-6 top-6" />
       <CornerMark className="absolute bottom-6 left-6" />
 
@@ -406,9 +406,8 @@ function WaveformPlayerVisual() {
         {RESPONSE_WAVEFORM.map((h, i) => (
           <span
             key={i}
-            className={`w-2 shrink-0 rounded-full ${
-              i % 3 === 1 ? "bg-moss" : "bg-ink"
-            }`}
+            className={`w-2 shrink-0 rounded-full ${i % 3 === 1 ? "bg-moss" : "bg-ink"
+              }`}
             style={{ height: `${h}%` }}
           />
         ))}
@@ -558,7 +557,7 @@ export function PracticeLoop() {
         <section
           key={step.number}
           style={{ top: i * 20, zIndex: i + 1 }}
-          className="static flex min-h-screen flex-col justify-center bg-white px-4 py-16 text-ink shadow-[0_-24px_50px_-20px_rgba(20,39,26,0.25)] sm:px-6 lg:sticky lg:px-[6.32%] lg:py-24"
+          className="static flex lg:min-h-screen flex-col justify-center bg-white px-4 py-16 text-ink shadow-[0_-24px_50px_-20px_rgba(20,39,26,0.25)] sm:px-6 lg:sticky lg:px-[6.32%] lg:py-24"
         >
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-16">
             <Reveal className="flex flex-col">
@@ -588,7 +587,7 @@ export function PracticeLoop() {
                 {step.description}
               </p>
 
-              <div className="mt-10 h-[3px] w-full max-w-md overflow-hidden rounded-full bg-cream">
+              <div className="mt-10 h-0.75 w-full max-w-md overflow-hidden rounded-full bg-cream">
                 <div
                   className="h-full rounded-full bg-ink"
                   style={{ width: `${((i + 1) / TOTAL_STEPS) * 100}%` }}

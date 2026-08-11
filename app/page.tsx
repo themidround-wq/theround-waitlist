@@ -28,7 +28,7 @@ export default function Home() {
         <div className="relative z-10 flex min-h-screen w-full flex-col">
           <Navbar />
 
-          <main className="relative flex flex-1 items-center overflow-y-auto px-4 py-6 sm:px-6 lg:overflow-visible lg:px-[6.32%] lg:py-0">
+          <main className="relative flex flex-1 items-center overflow-y-auto px-4 py-12 sm:px-6 lg:overflow-visible lg:px-[6.32%] lg:py-0">
             <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-16">
               <HeroContent />
               <TopicCard />

@@ -18,7 +18,7 @@ export function FinalCTA() {
 
   return (
     <section className="relative z-30 overflow-hidden bg-lime px-4 py-20 sm:px-6 lg:px-[6.32%] lg:py-28">
-      <div className="pointer-events-none absolute inset-6 rounded-[56px] border border-dashed border-ink/25" />
+      <div className="pointer-events-none absolute inset-6 rounded-[56px] border border-dashed border-ink/25 " />
 
       <div className="relative mx-auto flex max-w-6xl flex-col items-center text-center">
         <Reveal className="flex flex-col items-center">
@@ -40,7 +40,7 @@ export function FinalCTA() {
             </span>
           </h2>
 
-          <p className="mt-6 max-w-xl text-base text-ink/65 lg:text-xl">
+          <p className="mt-6 w-[93%] sm:max-w-xl text-base text-ink/65 lg:text-xl">
             Join the founding waitlist. We&apos;ll let you know when
             it&apos;s time to spin.
           </p>
@@ -48,18 +48,18 @@ export function FinalCTA() {
 
         <Reveal
           delay={0.15}
-          className="relative mt-10 w-full max-w-186.5 rounded-[28px] rounded-tr-none bg-white text-left shadow-xl lg:mt-14"
+          className="relative mt-10 w-[92%] md:w-full max-w-186.5 rounded-[15px]  bg-white text-left shadow-xl lg:mt-14"
         >
-          <div className="pointer-events-none absolute top-0 right-0 h-7 w-7">
+
+          <div className="pointer-events-none absolute top-0 rounded-[15px] right-0 h-4 w-4">
             <div
-              className="absolute inset-0 bg-lime"
-              style={{ clipPath: "polygon(100% 0%, 0% 0%, 100% 100%)" }}
-            />
-            <div
-              className="absolute inset-0 bg-gray-300"
-              style={{ clipPath: "polygon(100% 0%, 30% 100%, 100% 100%)" }}
+              className="absolute inset-0 bg-gray-300 rotate-180"
+              style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%)" }}
             />
           </div>
+
+
+
 
           <div className="flex items-center justify-between gap-4 border-b border-black/10 px-5 py-4 sm:px-7">
             <span className="flex items-center gap-2.5 text-[13px] font-bold uppercase tracking-[0.14em] text-ink">
@@ -90,7 +90,10 @@ export function FinalCTA() {
               type="submit"
               className="flex shrink-0 items-center gap-2 rounded-full bg-ink py-2 pl-4 pr-1.5 text-[12px] font-bold uppercase tracking-[0.08em] text-white transition-transform hover:scale-[1.02]"
             >
-              Join the waitlist
+              <span className="sm:block hidden">
+                Join the waitlist</span>
+              <span className="block sm:hidden">
+                Join</span>
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-lime text-ink">
                 <ArrowIcon className="h-3 w-3" />
               </span>

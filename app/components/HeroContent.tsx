@@ -17,11 +17,11 @@ export function HeroContent() {
 
   return (
     <div>
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/50">
+      <p className="text-xs md:block hidden font-bold uppercase tracking-[0.2em] text-white/50">
         Random topic · Timed response
       </p>
 
-      <h1 className="mt-3 text-[44px] font-medium leading-[0.94] tracking-tight text-cream sm:text-[56px] lg:mt-5 lg:text-[86px]">
+      <h1 className="mt-3 text-[48px] font-medium leading-[0.94] tracking-tight text-cream sm:text-[56px] lg:mt-5 lg:text-[86px]">
         Find the words
         <span className="text-lime">.</span>
         <br />
@@ -31,7 +31,7 @@ export function HeroContent() {
         <span className="text-lime">.</span>
       </h1>
 
-      <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/55 lg:mt-6">
+      <p className="mt-4 max-w-md text-[14px] md:text-[16px] leading-relaxed text-white/55 lg:mt-6">
         Get a clinical topic you didn&apos;t choose and answer it against the
         clock. Replay what you said, notice what needs work, and go again —{" "}
         <span className="font-medium text-cream">
