@@ -1,10 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
-import { ArrowIcon, CheckIcon, CloseIcon } from "./icon";
+import {
+  BarcodeIcon,
+  CheckIcon,
+  CloseIcon,
+  CopyIcon,
+  WhatsAppIcon,
+  XIcon,
+} from "./icon";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const WAITLIST_URL = "https://theround.app/joinwaitlist";
+const SHARE_TEXT =
+  "I just joined the private beta waitlist for The Round — clinical speaking practice for student midwives.";
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 28, scale: 0.95 },
@@ -44,12 +54,14 @@ const iconVariants: Variants = {
 export function SuccessModal({
   open,
   onClose,
-  queuePosition,
+  ticketNumber,
 }: {
   open: boolean;
   onClose: () => void;
-  queuePosition: number;
+  ticketNumber: number;
 }) {
+  const [copied, setCopied] = useState(false);
+
   useEffect(() => {
     if (!open) return;
 
@@ -64,6 +76,16 @@ export function SuccessModal({
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [open, onClose]);
+
+  useEffect(() => {
+    if (!open) setCopied(false);
+  }, [open]);
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(WAITLIST_URL);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
 
   return (
     <AnimatePresence>
@@ -95,7 +117,7 @@ export function SuccessModal({
               onClick={onClose}
               aria-label="Close"
               variants={itemVariants}
-              className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full text-slate transition-colors hover:bg-ink/5 hover:text-ink"
+              className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-ink/5 text-ink transition-colors hover:bg-ink/10"
             >
               <CloseIcon className="h-4 w-4" />
             </motion.button>
@@ -125,39 +147,93 @@ export function SuccessModal({
 
             <motion.div
               variants={itemVariants}
-              className="mt-8 rounded-2xl bg-[#eeecd6] p-5 text-left"
+              className="relative mt-8 flex rounded-2xl bg-ink text-left text-cream"
             >
-              <div className="flex items-center justify-between border-b border-ink/10 pb-4">
-                <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-moss">
-                  Beta access ticket
-                </span>
-                <span className="font-serif-italic text-sm italic text-moss">
-                  Confirmed &#10003;
-                </span>
+              <span className="absolute left-[calc(100%-7rem)] top-0 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
+              <span className="absolute left-[calc(100%-7rem)] bottom-0 h-5 w-5 -translate-x-1/2 translate-y-1/2 rounded-full bg-white" />
+
+              <div className="flex-1 border-r border-dashed border-white/20 px-5 py-4">
+                <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4">
+                  <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                    Private beta
+                  </span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-cream/50">
+                    Seat reserved &#10003;
+                  </span>
+                </div>
+                <div className="flex items-start gap-3 pt-4">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/10 text-lime">
+                    <CheckIcon className="h-2.5 w-2.5" />
+                  </span>
+                  <p className="text-[13px] leading-snug text-cream/60">
+                    We&apos;ve reserved your place in our private beta.
+                  </p>
+                </div>
               </div>
-              <div className="pt-4">
-                <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate">
-                  Queue position
+
+              <div className="flex w-28 shrink-0 flex-col items-center justify-center gap-2 px-3 py-4 text-center">
+                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-cream/50">
+                  Ticket no.
                 </span>
-                <p className="mt-1 text-2xl font-bold text-ink">
-                  #{queuePosition}
-                </p>
+                <span className="font-serif-italic text-2xl italic text-lime">
+                  #{ticketNumber}
+                </span>
+                <BarcodeIcon className="h-4 w-16 text-cream/40" />
               </div>
             </motion.div>
 
-            <motion.button
-              type="button"
-              onClick={onClose}
-              variants={itemVariants}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              className="mt-6 flex w-full items-center justify-between rounded-2xl bg-lime py-4 pl-6 pr-2 text-left text-[13px] font-bold uppercase tracking-[0.1em] text-ink"
-            >
-              Awesome, thanks!
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-ink text-lime">
-                <ArrowIcon className="h-3.5 w-3.5" />
+            <motion.div variants={itemVariants} className="mt-8 text-left">
+              <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate">
+                Invite friends, spread the word.
               </span>
-            </motion.button>
+
+              <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-cream/70 py-3 pl-4 pr-3">
+                <span className="truncate text-sm text-ink">
+                  {WAITLIST_URL}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  aria-label="Copy waitlist link"
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-lime text-ink transition-transform hover:scale-105"
+                >
+                  <CopyIcon className="h-4 w-4" />
+                </button>
+              </div>
+              <span
+                className={`mt-1.5 block text-xs font-medium text-moss transition-opacity ${
+                  copied ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                Link copied
+              </span>
+
+              <div className="mt-2 flex items-center gap-3">
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                    SHARE_TEXT
+                  )}&url=${encodeURIComponent(WAITLIST_URL)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-ink py-3 text-[13px] font-bold text-white transition-transform hover:scale-[1.02]"
+                >
+                  <XIcon className="h-3.5 w-3.5" />
+                  Share on X
+                </a>
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(
+                    `${SHARE_TEXT} ${WAITLIST_URL}`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] py-3 text-[13px] font-bold text-white transition-transform hover:scale-[1.02]"
+                >
+                  <WhatsAppIcon className="h-4 w-4" />
+                  Share on WhatsApp
+                </a>
+              </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       )}

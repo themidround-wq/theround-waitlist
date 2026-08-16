@@ -1,18 +1,32 @@
 "use client";
 
-import { useState, type SubmitEvent } from "react";
+import { useState, useTransition, type SubmitEvent } from "react";
+import { joinWaitlist } from "../actions/waitlist";
 import { ArrowIcon } from "./icon";
 import { SuccessModal } from "./SuccessModal";
 
 export function HeroContent() {
   const [open, setOpen] = useState(false);
-  const [queuePosition, setQueuePosition] = useState(0);
+  const [ticketNumber, setTicketNumber] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    setQueuePosition(1000 + Math.floor(Math.random() * 9000));
-    setOpen(true);
-    event.currentTarget.reset();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setError(null);
+    startTransition(async () => {
+      const result = await joinWaitlist(formData);
+      if (!result.success) {
+        setError(result.error);
+        return;
+      }
+      setTicketNumber(result.ticketNumber);
+      setOpen(true);
+      form.reset();
+    });
   }
 
   return (
@@ -49,25 +63,31 @@ export function HeroContent() {
         </span>
         <input
           type="email"
+          name="email"
           required
           placeholder="Your email address"
           className="w-full bg-transparent py-2 text-sm text-cream placeholder:text-white/40 focus:outline-none"
         />
         <button
           type="submit"
-          className="flex shrink-0 items-center gap-2 rounded-full bg-lime py-2.5 pl-4 pr-2 text-[11px] font-bold uppercase tracking-[0.08em] text-[#101a12] transition-transform hover:scale-[1.02]"
+          disabled={isPending}
+          className="flex shrink-0 items-center gap-2 rounded-full bg-lime py-2.5 pl-4 pr-2 text-[11px] font-bold uppercase tracking-[0.08em] text-[#101a12] transition-transform hover:scale-[1.02] disabled:opacity-60"
         >
-          Join the waitlist
+          {isPending ? "Joining…" : "Join the waitlist"}
           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#101a12] text-lime">
             <ArrowIcon className="h-3 w-3" />
           </span>
         </button>
       </form>
 
+      {error && (
+        <p className="mt-2 text-xs font-medium text-red-400">{error}</p>
+      )}
+
       <SuccessModal
         open={open}
         onClose={() => setOpen(false)}
-        queuePosition={queuePosition}
+        ticketNumber={ticketNumber}
       />
     </div>
   );

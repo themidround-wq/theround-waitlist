@@ -1,19 +1,33 @@
 "use client";
 
-import { useState, type SubmitEvent } from "react";
+import { useState, useTransition, type SubmitEvent } from "react";
+import { joinWaitlist } from "../actions/waitlist";
 import { ArrowIcon } from "./icon";
 import { Reveal } from "./motion";
 import { SuccessModal } from "./SuccessModal";
 
 export function FinalCTA() {
   const [open, setOpen] = useState(false);
-  const [queuePosition, setQueuePosition] = useState(0);
+  const [ticketNumber, setTicketNumber] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    setQueuePosition(1000 + Math.floor(Math.random() * 9000));
-    setOpen(true);
-    event.currentTarget.reset();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setError(null);
+    startTransition(async () => {
+      const result = await joinWaitlist(formData);
+      if (!result.success) {
+        setError(result.error);
+        return;
+      }
+      setTicketNumber(result.ticketNumber);
+      setOpen(true);
+      form.reset();
+    });
   }
 
   return (
@@ -82,18 +96,20 @@ export function FinalCTA() {
             </span>
             <input
               type="email"
+              name="email"
               required
               placeholder="Your email address"
               className="w-full bg-transparent text-sm text-ink placeholder:text-gray-400 focus:outline-none"
             />
             <button
               type="submit"
-              className="flex shrink-0 items-center gap-2 rounded-full bg-ink py-2 pl-4 pr-1.5 text-[12px] font-bold uppercase tracking-[0.08em] text-white transition-transform hover:scale-[1.02]"
+              disabled={isPending}
+              className="flex shrink-0 items-center gap-2 rounded-full bg-ink py-2 pl-4 pr-1.5 text-[12px] font-bold uppercase tracking-[0.08em] text-white transition-transform hover:scale-[1.02] disabled:opacity-60"
             >
               <span className="sm:block hidden">
-                Join the waitlist</span>
+                {isPending ? "Joining…" : "Join the waitlist"}</span>
               <span className="block sm:hidden">
-                Join</span>
+                {isPending ? "Joining…" : "Join"}</span>
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-lime text-ink">
                 <ArrowIcon className="h-3 w-3" />
               </span>
@@ -101,8 +117,10 @@ export function FinalCTA() {
           </form>
 
           <div className="px-5 py-3.5 sm:px-7">
-            <span className="text-sm text-gray-400">
-              One useful email when your invitation is ready.
+            <span
+              className={`text-sm ${error ? "text-red-500" : "text-gray-400"}`}
+            >
+              {error ?? "One useful email when your invitation is ready."}
             </span>
           </div>
         </Reveal>
@@ -111,7 +129,7 @@ export function FinalCTA() {
       <SuccessModal
         open={open}
         onClose={() => setOpen(false)}
-        queuePosition={queuePosition}
+        ticketNumber={ticketNumber}
       />
     </section>
   );

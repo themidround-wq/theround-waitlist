@@ -8,12 +8,6 @@ const WAVEFORM_BARS = [
   10.2, 11.7, 15.3, 22.8, 23.5,
 ];
 
-const TORN_CLIP_PATHS = [
-  "M 0.0000 0.0100 L 0.0455 0.0123 L 0.0909 0.0203 L 0.1364 0.0102 L 0.1818 0.0112 L 0.2273 0.0129 L 0.2727 0.0041 L 0.3182 0.0113 L 0.3636 0.0139 L 0.4091 0.0174 L 0.4545 0.0021 L 0.5000 0.0067 L 0.5455 0.0020 L 0.5909 0.0178 L 0.6364 0.0153 L 0.6818 0.0009 L 0.7273 0.0216 L 0.7727 0.0212 L 0.8182 0.0144 L 0.8636 0.0135 L 0.9091 0.0035 L 0.9545 0.0003 L 1.0000 0.0116 L 0.9993 0.1429 L 0.9977 0.2857 L 0.9971 0.4286 L 0.9996 0.5714 L 0.9944 0.7143 L 0.9947 0.8571 L 0.9899 1.0000 L 0.9954 1.0000 L 0.0056 1.0000 L 0.0060 0.8571 L 0.0079 0.7143 L 0.0055 0.5714 L 0.0033 0.4286 L 0.0120 0.2857 L 0.0119 0.1429 L 0.0101 0.0000 Z",
-  "M 0.0000 0.0211 L 0.0455 0.0031 L 0.0909 0.0005 L 0.1364 0.0220 L 0.1818 0.0041 L 0.2273 0.0027 L 0.2727 0.0143 L 0.3182 0.0076 L 0.3636 0.0196 L 0.4091 0.0051 L 0.4545 0.0211 L 0.5000 0.0070 L 0.5455 0.0132 L 0.5909 0.0205 L 0.6364 0.0151 L 0.6818 0.0203 L 0.7273 0.0156 L 0.7727 0.0011 L 0.8182 0.0194 L 0.8636 0.0130 L 0.9091 0.0068 L 0.9545 0.0042 L 1.0000 0.0187 L 0.9930 0.1429 L 0.9887 0.2857 L 0.9907 0.4286 L 0.9885 0.5714 L 0.9932 0.7143 L 0.9916 0.8571 L 0.9927 1.0000 L 0.9977 1.0000 L 0.0084 1.0000 L 0.0037 0.8571 L 0.0094 0.7143 L 0.0115 0.5714 L 0.0078 0.4286 L 0.0017 0.2857 L 0.0099 0.1429 L 0.0080 0.0000 Z",
-  "M 0.0000 0.0125 L 0.0455 0.0139 L 0.0909 0.0180 L 0.1364 0.0061 L 0.1818 0.0143 L 0.2273 0.0196 L 0.2727 0.0200 L 0.3182 0.0041 L 0.3636 0.0143 L 0.4091 0.0136 L 0.4545 0.0111 L 0.5000 0.0213 L 0.5455 0.0116 L 0.5909 0.0098 L 0.6364 0.0208 L 0.6818 0.0140 L 0.7273 0.0066 L 0.7727 0.0068 L 0.8182 0.0109 L 0.8636 0.0012 L 0.9091 0.0134 L 0.9545 0.0162 L 1.0000 0.0094 L 0.9898 0.1429 L 0.9889 0.2857 L 0.9933 0.4286 L 0.9918 0.5714 L 0.9986 0.7143 L 0.9993 0.8571 L 0.9882 1.0000 L 0.9975 1.0000 L 0.0019 1.0000 L 0.0108 0.8571 L 0.0090 0.7143 L 0.0015 0.5714 L 0.0039 0.4286 L 0.0029 0.2857 L 0.0033 0.1429 L 0.0001 0.0000 Z",
-];
-
 const STUDENT_NOTES = [
   {
     number: "01",
@@ -44,16 +38,6 @@ const STATS = [
 export function FounderStory() {
   return (
     <section className="relative z-20 bg-ink px-4 py-16 text-cream sm:px-6 lg:px-[6.32%] lg:py-24">
-      <svg width="0" height="0" className="absolute">
-        <defs>
-          {TORN_CLIP_PATHS.map((d, i) => (
-            <clipPath key={i} id={`torn-clip-${i}`} clipPathUnits="objectBoundingBox">
-              <path d={d} />
-            </clipPath>
-          ))}
-        </defs>
-      </svg>
-
       <div className="flex items-center justify-between gap-4 border-b border-cream/10 pb-4">
         <span className="sm:text-[13px] text-[10px] font-bold uppercase tracking-[0.2em] text-cream/55">
           03 · Why the round exists
@@ -154,12 +138,15 @@ export function FounderStory() {
         </div>
       </Reveal>
 
-      <RevealGroup className="mt-12 w-full flex overflow-x-auto snap-x snap-mandatory scrollbar-none sm:grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:mt-16">
-        {STUDENT_NOTES.map((note, i) => (
+      <RevealGroup className="mt-12 grid w-full grid-flow-col auto-cols-[81%] overflow-x-auto snap-x snap-mandatory scrollbar-none gap-6 sm:auto-cols-[calc(50%-0.75rem)] sm:grid-flow-row sm:grid-cols-2 md:grid-cols-3 lg:mt-16">
+        {STUDENT_NOTES.map((note) => (
           <RevealItem
             key={note.number}
-            className="relative bg-cream px-6 py-8 text-ink sm:px-7 w-81 sm:w-auto shrink-0 snap-start"
-            style={{ clipPath: `url(#torn-clip-${i})` }}
+            className="relative bg-no-repeat px-6 py-10 text-ink sm:px-7 sm:py-11 snap-start"
+            style={{
+              backgroundImage: "url(/review-card-bg.png)",
+              backgroundSize: "100% 100%",
+            }}
           >
             <span className="text-[11px] font-bold tracking-[0.14em] text-ink/50 uppercase">
               Student {note.number}
