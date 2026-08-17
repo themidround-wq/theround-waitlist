@@ -112,9 +112,8 @@ export function FounderStory() {
                 {WAVEFORM_BARS.map((h, i) => (
                   <span
                     key={i}
-                    className={`w-0.75 shrink-0 rounded-full ${
-                      i < 24 ? "bg-ink/80" : "bg-white"
-                    }`}
+                    className={`w-0.75 shrink-0 rounded-full ${i < 24 ? "bg-ink/80" : "bg-white"
+                      }`}
                     style={{ height: `${h}px` }}
                   />
                 ))}
