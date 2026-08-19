@@ -1,5 +1,8 @@
 "use server";
 
+import { after } from "next/server";
+
+import { sendWaitlistEmail } from "@/lib/email";
 import { getSupabaseClient } from "@/lib/supabase";
 
 const DUPLICATE_KEY_ERROR = "23505";
@@ -43,5 +46,19 @@ export async function joinWaitlist(
     return { success: false, error: "Something went wrong. Please try again." };
   }
 
-  return { success: true, ticketNumber: 1000 + Number(data.id) };
+  const ticketNumber = 1000 + Number(data.id);
+
+  // Runs after the response is sent, so a slow or failing Resend call never
+  // delays the success modal or fails a signup that already landed in the DB.
+  // Only new rows send: a duplicate signup returns early above, so re-submitting
+  // the same address cannot be used to re-trigger mail to it.
+  after(async () => {
+    await sendWaitlistEmail({
+      to: email,
+      waitlistId: Number(data.id),
+      ticketNumber,
+    });
+  });
+
+  return { success: true, ticketNumber };
 }

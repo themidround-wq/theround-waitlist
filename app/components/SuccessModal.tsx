@@ -12,7 +12,7 @@ import {
 } from "./icon";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-const WAITLIST_URL = "https://theround.app/joinwaitlist";
+const WAITLIST_URL = "https://gettheround.com";
 const SHARE_TEXT =
   "I just joined the private beta waitlist for The Round — clinical speaking practice for student midwives.";
 
