@@ -202,9 +202,8 @@ export function SuccessModal({
                 </button>
               </div>
               <span
-                className={`mt-1.5 block text-xs font-medium text-moss transition-opacity ${
-                  copied ? "opacity-100" : "opacity-0"
-                }`}
+                className={`mt-1.5 block text-xs font-medium text-moss transition-opacity ${copied ? "opacity-100" : "opacity-0"
+                  }`}
               >
                 Link copied
               </span>

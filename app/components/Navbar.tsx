@@ -1,17 +1,20 @@
 import { ArrowIcon, WaveformIcon } from "./icon";
+import Logo from "../../public/Logo-on-darkbg.png";
+import Image from "next/image";
 
 export function Navbar() {
   return (
     <header className="px-4 pt-4 sm:px-6 sm:pt-6 lg:px-[9.72%]">
       <div className="flex w-full items-center justify-between gap-4 rounded-2xl border border-white/10 bg-black/15 py-2 pl-2 pr-2 backdrop-blur-sm sm:pl-3">
-        <div className="flex items-center gap-3">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-lime/40 text-lime">
-            <WaveformIcon className="h-5 w-5" />
-          </span>
-          <span className="flex items-start gap-0.5 text-[16px] lg:text-xl font-medium text-cream">
+        <div className="flex items-center gap-3 shrink-0">
+          {/* <span className="flex shrink-0 items-center justify-center rounded-full border border-lime/40 text-lime"> */}
+            {/* <WaveformIcon className="h-5 w-5" /> */}
+            <Image src={Logo} alt="The Round Logo" className="sm:w-[120px] w-[100px]"/>
+          {/* </span> */}
+          {/* <span className="flex items-start gap-0.5 text-[16px] lg:text-xl font-medium text-cream">
             the round
             <sup className="mt-0.5 text-[10px] font-normal text-lime">®</sup>
-          </span>
+          </span> */}
         </div>
 
         <div className="hidden items-center gap-3 text-[11px] font-bold uppercase tracking-[0.14em] md:flex">
