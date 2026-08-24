@@ -46,6 +46,20 @@ export async function sendWaitlistEmail({
     return;
   }
 
+  if (from.includes("resend.dev")) {
+    console.warn(
+      "[email] WARNING: Sending via resend.dev test domain. Emails sent to external recipient domains will land in Spam or be rejected until a custom domain is verified in Resend."
+    );
+  }
+
+  const siteUrl =
+    process.env.EMAIL_ASSET_ORIGIN ??
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    "https://gettheround.com";
+  const unsubscribeUrl =
+    process.env.RESEND_UNSUBSCRIBE_URL ?? `${siteUrl}/unsubscribe`;
+  const companyAddress = process.env.COMPANY_ADDRESS;
+
   try {
     // The SDK reports API failures in `error` rather than throwing; the
     // try/catch is only for network-level failures.
@@ -55,8 +69,20 @@ export async function sendWaitlistEmail({
         to,
         replyTo: process.env.RESEND_REPLY_TO || undefined,
         subject: WAITLIST_SUCCESS_SUBJECT,
-        html: waitlistSuccessHtml({ ticketNumber }),
-        text: waitlistSuccessText({ ticketNumber }),
+        html: waitlistSuccessHtml({
+          ticketNumber,
+          unsubscribeUrl,
+          companyAddress,
+        }),
+        text: waitlistSuccessText({
+          ticketNumber,
+          unsubscribeUrl,
+          companyAddress,
+        }),
+        headers: {
+          "List-Unsubscribe": `<${unsubscribeUrl}>`,
+          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        },
       },
       { idempotencyKey: `waitlist-success-${waitlistId}` }
     );

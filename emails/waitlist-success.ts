@@ -11,6 +11,8 @@
 
 type WaitlistSuccessProps = {
   ticketNumber: number;
+  unsubscribeUrl?: string;
+  companyAddress?: string;
 };
 
 const INK = "#14271a";
@@ -28,7 +30,7 @@ const SOCIALS = [
  * over HTTPS - relative paths and data: URIs do not render (Gmail and Outlook
  * strip data: URIs outright), so this cannot point at localhost.
  */
-const SITE_URL = process.env.EMAIL_ASSET_ORIGIN ?? "https://gettheround.com";
+const SITE_URL = process.env.EMAIL_ASSET_ORIGIN ?? process.env.NEXT_PUBLIC_SITE_URL ?? "https://gettheround.com";
 
 /**
  * Served from public/Logo-on-whitebg.png. Source is 480x136; displayed at 120
@@ -49,8 +51,12 @@ export const WAITLIST_SUCCESS_SUBJECT = "Your seat is held.";
  * Plain-text alternative. Always sent alongside the HTML: it improves
  * deliverability and is the fallback for text-only clients.
  */
-export function waitlistSuccessText({ ticketNumber }: WaitlistSuccessProps) {
-  return [
+export function waitlistSuccessText({
+  ticketNumber,
+  unsubscribeUrl = `${SITE_URL}/unsubscribe`,
+  companyAddress = process.env.COMPANY_ADDRESS,
+}: WaitlistSuccessProps) {
+  const lines = [
     "Your seat is held.",
     "",
     `Ticket no. #${ticketNumber}`,
@@ -65,10 +71,23 @@ export function waitlistSuccessText({ ticketNumber }: WaitlistSuccessProps) {
     ...SOCIALS.map((s) => `  ${s.label}: ${s.href}`),
     "",
     "The Round - Practice with purpose.",
-  ].join("\n");
+  ];
+
+  if (companyAddress) {
+    lines.push("", companyAddress);
+  }
+  if (unsubscribeUrl) {
+    lines.push("", `To unsubscribe or manage preferences: ${unsubscribeUrl}`);
+  }
+
+  return lines.join("\n");
 }
 
-export function waitlistSuccessHtml({ ticketNumber }: WaitlistSuccessProps) {
+export function waitlistSuccessHtml({
+  ticketNumber,
+  unsubscribeUrl = `${SITE_URL}/unsubscribe`,
+  companyAddress = process.env.COMPANY_ADDRESS,
+}: WaitlistSuccessProps) {
   const socialCells = SOCIALS.map(
     (s, i) => `
                   <td style="font-family: 'Segoe UI', Arial, sans-serif; font-weight: 600; font-size:16px; ${
@@ -118,8 +137,10 @@ export function waitlistSuccessHtml({ ticketNumber }: WaitlistSuccessProps) {
 </style>
 </head>
 <body style="margin:0; padding:0; background-color:#ffffff;">
-  <div style="display:none; max-height:0; overflow:hidden; mso-hide:all;">
+  <!-- Spam-safe hidden preheader with non-breaking whitespace padding -->
+  <div style="display:none; font-size:1px; color:#ffffff; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; mso-hide:all;">
     Your seat on The Round waitlist is confirmed &mdash; ticket no. #${ticketNumber}. We'll be in touch when it's time.
+    &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp;
   </div>
 
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;">
@@ -211,6 +232,12 @@ export function waitlistSuccessHtml({ ticketNumber }: WaitlistSuccessProps) {
                   </td>
                   <td align="right" style="font-family: 'Segoe UI', Arial, sans-serif; font-weight: 600; letter-spacing: 1.5px; color: ${MUTED}; font-size:13px; text-transform:uppercase;">
                     Practice with purpose.
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="padding-top: 16px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; line-height: 1.5; color: ${MUTED};">
+                    ${companyAddress ? `${companyAddress}<br />` : ""}
+                    Received this by mistake or want to opt out? <a href="${unsubscribeUrl}" style="color: ${MUTED}; text-decoration: underline;">Unsubscribe</a>
                   </td>
                 </tr>
               </table>
