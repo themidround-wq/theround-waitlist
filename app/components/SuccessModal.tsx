@@ -141,8 +141,7 @@ export function SuccessModal({
               variants={itemVariants}
               className="mt-4 text-base leading-relaxed text-slate"
             >
-              We&apos;ve reserved your place in our private beta. We&apos;ll
-              let you know as soon as it&apos;s your turn to spin.
+              We&apos;ve reserved your place in our private beta. Check your inbox for a confirmation email &mdash; if you don&apos;t see it, please check your spam folder.
             </motion.p>
 
             <motion.div
